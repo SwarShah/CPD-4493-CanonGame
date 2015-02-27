@@ -306,6 +306,10 @@ public class CannonView extends SurfaceView
          cannonThread.setRunning(false); // terminate thread
          showGameOverDialog(R.string.lose); // show the losing dialog
       } 
+      
+      if(score<0){
+    	  score=0;
+      }
    } // end method updatePositions
 
    // fires a cannonball
