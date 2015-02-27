@@ -2,12 +2,16 @@
 // Displays and controls the Cannon Game
 package com.deitel.cannongame;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +19,7 @@ import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -91,7 +96,7 @@ public class CannonView extends SurfaceView
    private Paint blockerPaint; // Paint used to draw the blocker
    private Paint targetPaint; // Paint used to draw the target
    private Paint backgroundPaint; // Paint used to clear the drawing area
-
+   Integer[] top = new Integer[6];
    // public constructor
    public CannonView(Context context, AttributeSet attrs)
    {
@@ -175,11 +180,40 @@ public class CannonView extends SurfaceView
       blockerPaint.setStrokeWidth(lineWidth); // set line thickness      
       targetPaint.setStrokeWidth(lineWidth); // set line thickness       
       backgroundPaint.setColor(Color.WHITE); // set background color
-
+      
       newGame(); // set up and start a new game
    } // end method onSizeChanged
+   
+   private String loadSharedPref(int tmp) {
+	// TODO Auto-generated method stub
+	   SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CannonView.this.getContext());
+	   SharedPreferences.Editor editor = preferences.edit();
+	   	  top[0] = preferences.getInt("top1", 0);
+		  top[1] = preferences.getInt("top2", 0);
+		  top[2] = preferences.getInt("top3", 0);
+		  top[3] = preferences.getInt("top4", 0);
+		  top[4] = preferences.getInt("top5", 0);
+		  
+		  top[5] = tmp;
+		  Arrays.sort(top, Collections.reverseOrder());
+		  StringBuilder sb = new StringBuilder();
+		  boolean isMarked = false;
+		  for (int i = 0; i < 5; i++) {
+			  if(tmp==top[i] && isMarked==false){
+				  sb.append("Top "+(i+1)+":"+top[i]+" (*)\n");
+				  isMarked= true;
+			  }else{
+				  sb.append("Top "+(i+1)+":"+top[i]+"\n");
+			  }
+			
+			editor.putInt("top"+(i+1), top[i]);			
+		}
+		  editor.apply();
+		  return sb.toString();
+		  
+}
 
-   // reset all the screen elements and start a new game
+// reset all the screen elements and start a new game
    public void newGame()
    {
 	   hitStates = new boolean[TARGET_PIECES];
@@ -440,7 +474,7 @@ public class CannonView extends SurfaceView
 
                // display number of shots fired and total time elapsed
                builder.setMessage(getResources().getString(
-                  R.string.results_format, shotsFired, totalElapsedTime, score));
+                  R.string.results_format, shotsFired, totalElapsedTime, score)+"\n"+loadSharedPref(score));
                builder.setPositiveButton(R.string.reset_game,
                   new DialogInterface.OnClickListener()
                   {
