@@ -43,6 +43,7 @@ public final class R {
         public static final int nextLevel=0x7f060007;
         public static final int reset_game=0x7f060002;
         public static final int results_format=0x7f060001;
+        public static final int score=0x7f060008;
         public static final int time_remaining_format=0x7f060005;
         public static final int win=0x7f060003;
     }

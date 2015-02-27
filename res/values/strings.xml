@@ -9,4 +9,5 @@
     <string name="time_remaining_format">Time remaining: %.1f seconds</string>
 	<string name="level">Level: %d</string>
 	<string name="nextLevel">Continue to next level</string>
+	<string name="score">Score: %d</string>
 </resources>
