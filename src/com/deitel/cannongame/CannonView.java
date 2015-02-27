@@ -271,7 +271,7 @@ public class CannonView extends SurfaceView
                if (++targetPiecesHit == TARGET_PIECES)
                {
                   cannonThread.setRunning(false); // terminate thread
-                  showGameWinDialog(R.string.win); // show winning dialog
+                  showGameWinDialog(R.string.next); // show winning dialog
                   gameOver = true; 
                } 
             }
@@ -436,7 +436,7 @@ public class CannonView extends SurfaceView
 
                // display number of shots fired and total time elapsed
                builder.setMessage(getResources().getString(
-                  R.string.results_format, shotsFired, totalElapsedTime));
+                  R.string.results_format, shotsFired, totalElapsedTime, score));
                builder.setPositiveButton(R.string.reset_game,
                   new DialogInterface.OnClickListener()
                   {
@@ -487,7 +487,7 @@ public class CannonView extends SurfaceView
 
                // display number of shots fired and total time elapsed
                builder.setMessage(getResources().getString(
-                  R.string.results_format, shotsFired, totalElapsedTime));
+                  R.string.results_format, shotsFired, totalElapsedTime, score));
                builder.setPositiveButton(R.string.nextLevel,
                   new DialogInterface.OnClickListener()
                   {

@@ -2,10 +2,11 @@
 <resources>
 
     <string name="app_name">Cannon Game</string>
-    <string name="results_format">Shots fired: %1$d\nTotal time: %2$.1f</string>
+    <string name="results_format">Shots fired: %1$d\nTotal time: %2$.1f\nScore: %3$d</string>
     <string name="reset_game">Reset Game</string>
     <string name="win">You win!</string>
     <string name="lose">You lose!</string>
+    <string name="next">Well done!</string>
     <string name="time_remaining_format">Time remaining: %.1f seconds</string>
 	<string name="level">Level: %d</string>
 	<string name="nextLevel">Continue to next level</string>
